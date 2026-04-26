@@ -1,0 +1,151 @@
+---
+title: "Perinatal Diet and Preeclampsia: Interactive Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+---
+
+```{r setup, include=FALSE}
+library(here)
+library(dplyr)
+library(ggplot2)
+library(plotly)
+library(DT)
+library(htmltools)
+library(reactable)
+
+source(here("scripts", "lasso.R"))
+source(here("scripts", "all_results.R"))
+```
+
+# Project Overview
+=====================================
+
+Row
+-------------------------------------
+
+### About this project
+```{r}
+HTML("
+<div style='background-color:#f7f7f7; padding:15px; border-radius:10px;'>
+
+<b>Background</b><br>
+Preeclampsia is a hypertensive disorder of pregnancy and a leading cause of maternal and neonatal complications. Diet is a potentially modifiable factor that may influence risk, but evidence has been inconsistent when focusing on individual foods or nutrients.<br><br>
+
+A dietary patterns approach considers overall eating behavior rather than single components, which may better capture real-world diets and their relationship with health outcomes.<br><br>
+
+<b>What this dashboard does</b><br>
+Identifies dietary patterns during pregnancy using dietary intake data (e.g., food group consumption) and multiple clustering methods, and evaluates their association with preeclampsia risk.<br><br>
+
+<b>Results</b><br>
+Presented as marginally standardized risk differences, reflecting population-average differences in risk between clusters.<br><br>
+
+<b>Interpretation</b><br>
+All estimates are scaled per <b>100 pregnancies</b> for interpretability.
+
+</div>
+")
+```
+
+# Clustering Variability in Dietary Patterns
+=====================================
+
+Column {.tabset}
+-------------------------------------
+
+### K-means
+```{r}
+tagList(
+  div(style = "height:450px;",
+      ggplotly(p1, tooltip = "text")
+  ),
+  
+  div(
+    style = "font-size:14px; line-height:1.5; margin-top:10px;",
+    HTML("
+<b>Summary</b><br>
+    K-means identified clusters characterized by sweetened beverages, sweet bakery products, and white potatoes in cluster 1, and by vegetables (excluding potatoes), coffee and tea, and fruits in cluster 2.")
+))
+```
+
+### K-medoids
+```{r}
+tagList(
+  div(style = "height:450px;",
+      ggplotly(p2, tooltip = "text")
+  ),
+  
+  div(
+    style = "font-size:14px; line-height:1.5; margin-top:10px;",
+    HTML("
+<b>Summary</b><br>
+    K-medoids characterized cluster 1 by ready-to-eat cereal, crackers, and candy, and cluster 2 by alcoholic beverages, coffee and tea, and yogurt.")
+))
+```
+
+### Hierarchical
+```{r}
+tagList(
+  div(style = "height:450px;",
+      ggplotly(p3, tooltip = "text")
+  ),
+  
+  div(
+    style = "font-size:14px; line-height:1.5; margin-top:10px;",
+    HTML("
+<b>Summary</b><br>
+    For Hierarchical clustering, vegetables (excluding potatoes), coffee and tea, and diet beverages characterized cluster 1, whereas sweetened beverages, savory snacks, and pizza defined cluster 2.")
+))
+```
+
+### GMM
+```{r}
+tagList(
+  div(style = "height:450px;",
+      ggplotly(p4, tooltip = "text")
+  ),
+  
+  div(
+    style = "font-size:14px; line-height:1.5; margin-top:10px;",
+    HTML("
+<b>Summary</b><br>
+    In Gaussian Mixture Modelling, cluster 1 showed particularly elevated log-odds for sweetened beverages, 100% juice, and alcoholic beverages, while cluster 2's highest values were for diet beverages, beans/vegetables, and coffee and tea.")
+))
+```
+
+# Perinatal Diet and Preeclampsia Risk
+=====================================
+Row {data-height=1}
+-------------------------------------
+
+```{r}
+HTML("<h3>Risk Difference for Preeclampsia per <b>100 pregnancies</b></h3>")
+```
+
+Row {data-height=6}
+-------------------------------------
+```{r}
+tagList(
+  div(style = "height:450px;",
+      ggplotly(p, tooltip = "text")
+  ),
+  
+  div(
+    style = "background-color:white; 
+            padding:12px; 
+            border-radius:8px;
+            font-size:14px; 
+            line-height:1.6; 
+            margin-top:10px;
+            border: 1px solid #e0e0e0;",
+))
+```
+Row {data-height=2}
+-------------------------------------
+
+```{r}
+HTML("
+<b>Summary</b><br>
+K-means showed a lower risk of preeclampsia, while Hierarchical clustering showed a higher risk. K-medoids and GMM showed minimal differences. All confidence intervals included the null, suggesting no statistically significant associations.
+")
+```
