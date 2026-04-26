@@ -24,24 +24,26 @@ source(here("scripts", "all_results.R"))
 Row
 -------------------------------------
 
-### About this project
+### Dataset Description & Project Information
 ```{r}
 HTML("
-<div style='background-color:#f7f7f7; padding:15px; border-radius:10px;'>
+<div style='background-color:white; padding:15px; border-radius:8px; border:1px solid #e0e0e0;'>
 
-<b>Background</b><br>
-Preeclampsia is a hypertensive disorder of pregnancy and a leading cause of maternal and neonatal complications. Diet is a potentially modifiable factor that may influence risk, but evidence has been inconsistent when focusing on individual foods or nutrients.<br><br>
+<b>Dataset Description</b><br>
+This study uses data from a large prospective cohort of nulliparous pregnant individuals in the United States. The dataset is not publicly available and is considered confidential.<br><br>
 
-A dietary patterns approach considers overall eating behavior rather than single components, which may better capture real-world diets and their relationship with health outcomes.<br><br>
+Dietary intake was collected during early pregnancy using a food frequency questionnaire and summarized into food group variables. Additional demographic and clinical information was collected through standardized study visits and questionnaires.<br><br>
 
-<b>What this dashboard does</b><br>
-Identifies dietary patterns during pregnancy using dietary intake data (e.g., food group consumption) and multiple clustering methods, and evaluates their association with preeclampsia risk.<br><br>
+The analytic sample includes over 8,000 participants enrolled between 2010 and 2013 across multiple clinical sites.<br><br>
 
-<b>Results</b><br>
-Presented as marginally standardized risk differences, reflecting population-average differences in risk between clusters.<br><br>
+<b>Real-World Impact</b><br>
+This dashboard shows that results about diet and preeclampsia can change depending on the clustering method used. This highlights the need for careful methodological choices in nutritional epidemiology and more cautious interpretation of findings.<br><br>
 
-<b>Interpretation</b><br>
-All estimates are scaled per <b>100 pregnancies</b> for interpretability.
+<b>Project Repository</b><br>
+View the full project code here: 
+<a href='https://github.com/cdiazbe/DATA555_Dashboard' target='_blank'>
+https://github.com/cdiazbe/DATA555_Dashboard
+</a><br><br>
 
 </div>
 ")
